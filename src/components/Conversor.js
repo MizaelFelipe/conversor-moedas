@@ -16,18 +16,32 @@ export default class Conversor extends Component {
     let de_para = `${this.props.moedaA}_${this.props.moedaB}`
 
     let url = `https://free.currconv.com/api/v7/convert?q=${de_para}&compact=ultra&apiKey=dd3b1c035295dbcc30f0`
+    
 
     fetch(url)
-    .then(res=>{
+  .then(response => response.json())
+  .then(data =>{ 
+    console.log(data)
 
+      let cotacao = data[de_para];
+      console.log(cotacao);
+      let moedaB_valor = (parseFloat (this.state.moedaA_valor) * cotacao).toFixed(2)
+      this.setState({moedaB_valor})
+    }
+    
+    );
+    /* fetch(url)
+    .then(res=>{
+      
       return res.json()
+      
     })
     .then(json=>{
-      let cota = json[de_para].val;
-      let moedaB_valor = (parseFloat (this.state.moedaA_valor) * cota).toFixed(2)
+      let cotacao = json[de_para].val;
+      let moedaB_valor = (parseFloat (this.state.moedaA_valor) * cotacao).toFixed(2)
       this.setState({moedaB_valor})
     })
-  }
+  } */}
 
   render() {
     return (
